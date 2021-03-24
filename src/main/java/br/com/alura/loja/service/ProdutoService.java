@@ -1,6 +1,10 @@
 package br.com.alura.loja.service;
 
+import br.com.alura.loja.dao.CategoriaDao;
+import br.com.alura.loja.dao.ProdutoDao;
+import br.com.alura.loja.modelo.Categoria;
 import br.com.alura.loja.modelo.Produto;
+import br.com.alura.loja.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,16 +14,17 @@ import java.math.BigDecimal;
 public class ProdutoService {
 
     public static void main(String[] args) {
-        Produto celular = new Produto();
-        celular.setNome("Sansung");
-        celular.setDescricao("S20");
-        celular.setPreco(new BigDecimal("4000"));
+        Categoria celulares = new Categoria("Celulares");
+        Produto celular = new Produto("Samsung", "S20", new BigDecimal("4000"), celulares);
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("loja");
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
+
+        CategoriaDao categoriaDao = new CategoriaDao(em);
+        ProdutoDao produtoDao = new ProdutoDao(em);
 
         em.getTransaction().begin();
-        em.persist(celular);
+        categoriaDao.cadastrar(celulares);
+        produtoDao.cadastrar(celular);
         em.getTransaction().commit();
         em.close();
 
