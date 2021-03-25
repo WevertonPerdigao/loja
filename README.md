@@ -2,7 +2,7 @@
 
 Persistência Com JPA
 
-JPQ
+JPQL
 
 EntityManager
 
