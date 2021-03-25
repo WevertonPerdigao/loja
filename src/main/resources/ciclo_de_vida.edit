@@ -1,0 +1,9 @@
+não gerenciado pela JPA
+
+new() -> transient
+
+estados gerenciado pela JPA
+
+persist() -> managed
+commit()/flush() -> envio para banco de dados
+close()/clear() -> detached
